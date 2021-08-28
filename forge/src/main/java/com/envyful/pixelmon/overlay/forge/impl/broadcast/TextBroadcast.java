@@ -4,6 +4,7 @@ import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.pixelmon.overlay.api.Broadcast;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
+import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
 import com.pixelmonmod.pixelmon.api.overlay.notice.NoticeOverlay;
@@ -34,7 +35,7 @@ public class TextBroadcast implements Broadcast {
                 .setItemStack(new ItemStack(Items.AIR))
                 .sendTo((EntityPlayerMP) player.getParent());
 
-        //TODO: add clearing task
+        ClearTask.updateClearTime(player, System.currentTimeMillis() + this.duration);
     }
 
     @Override

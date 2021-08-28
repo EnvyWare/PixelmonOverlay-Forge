@@ -2,6 +2,7 @@ package com.envyful.pixelmon.overlay.forge.impl.broadcast;
 
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.pixelmon.overlay.api.Broadcast;
+import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
 import com.pixelmonmod.pixelmon.api.overlay.notice.NoticeOverlay;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -28,7 +29,7 @@ public class ItemBroadcast extends TextBroadcast {
                 .setItemStack(this.display)
                 .sendTo((EntityPlayerMP) player.getParent());
 
-        //TODO: add clearing task
+        ClearTask.updateClearTime(player, System.currentTimeMillis() + this.duration);
     }
 
     public static class Builder implements Broadcast.Builder<ItemStack> {

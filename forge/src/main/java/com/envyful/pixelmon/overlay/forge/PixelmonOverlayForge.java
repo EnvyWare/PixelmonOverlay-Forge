@@ -1,9 +1,11 @@
 package com.envyful.pixelmon.overlay.forge;
 
 import com.envyful.api.forge.command.ForgeCommandFactory;
+import com.envyful.api.forge.concurrency.ForgeTaskBuilder;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
 import com.envyful.pixelmon.overlay.forge.impl.BroadcastPlatformForge;
+import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -27,6 +29,13 @@ public class PixelmonOverlayForge {
         instance = this;
 
         BroadcastFactory.setPlatformFactory(new BroadcastPlatformForge());
+
+        new ForgeTaskBuilder()
+                .async(true)
+                .delay(10L)
+                .interval(10L)
+                .task(new ClearTask())
+                .start();
     }
 
     @Mod.EventHandler
