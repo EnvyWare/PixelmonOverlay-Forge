@@ -43,6 +43,13 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
         private long durationSeconds = 30;
         private ConfigData<?> configData;
 
+
+        public BroadcastConfig() {}
+
+        public BroadcastConfig(ConfigData<?> configData) {
+            this.configData = configData;
+        }
+
         public String getLayoutType() {
             return this.layoutType;
         }
