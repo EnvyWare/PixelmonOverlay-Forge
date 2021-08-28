@@ -1,0 +1,3 @@
+rootProject.name = 'PixelmonOverlay Forge'
+include 'api'
+include 'forge'
