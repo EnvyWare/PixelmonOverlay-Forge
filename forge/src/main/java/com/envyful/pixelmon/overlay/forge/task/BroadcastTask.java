@@ -1,8 +1,6 @@
 package com.envyful.pixelmon.overlay.forge.task;
 
-import com.envyful.api.forge.concurrency.UtilForgeConcurrency;
 import com.envyful.api.math.UtilRandom;
-import com.envyful.pixelmon.overlay.api.Broadcast;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
 import com.envyful.pixelmon.overlay.forge.config.PixelmonOverlayConfig;
@@ -31,24 +29,12 @@ public class BroadcastTask implements Runnable {
 
         this.lastBroadcast = System.currentTimeMillis();
         PixelmonOverlayConfig.BroadcastConfig randomBroadcast = this.getRandomBroadcast();
-        Broadcast broadcast = null;
 
-        if (randomBroadcast.getConfigData() == null) {
-            broadcast = BroadcastFactory.builder("")
-                    .lines(randomBroadcast.getText())
-                    .duration((int) randomBroadcast.getDurationSeconds())
-                    .layout(EnumOverlayLayout.valueOf(randomBroadcast.getLayoutType().toUpperCase()))
-                    .build();
-        } else {
-            broadcast = BroadcastFactory.builder(randomBroadcast.getConfigData().build())
-                    .lines(randomBroadcast.getText())
-                    .duration((int) randomBroadcast.getDurationSeconds())
-                    .layout(EnumOverlayLayout.valueOf(randomBroadcast.getLayoutType().toUpperCase()))
-                    .build();
-        }
-
-        Broadcast finalBroadcast = broadcast;
-        UtilForgeConcurrency.runSync(finalBroadcast::sendAll);
+        BroadcastFactory.builder(randomBroadcast.getConfigData() == null ? "" : randomBroadcast.getConfigData().build())
+                .lines(randomBroadcast.getText())
+                .duration((int) randomBroadcast.getDurationSeconds())
+                .layout(EnumOverlayLayout.valueOf(randomBroadcast.getLayoutType().toUpperCase()))
+                .build().sendAll();
     }
 
     private boolean canBroadcastYet() {
