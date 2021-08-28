@@ -1,3 +1,3 @@
-rootProject.name = 'PixelmonOverlay Forge'
+rootProject.name = 'PixelmonOverlay'
 include 'api'
 include 'forge'
