@@ -1,7 +1,10 @@
 package com.envyful.pixelmon.overlay.forge.impl.broadcast;
 
+import com.envyful.api.forge.chat.UtilChatColour;
+import com.envyful.api.forge.concurrency.UtilForgeConcurrency;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.player.EnvyPlayer;
+import com.envyful.papi.api.util.UtilPlaceholder;
 import com.envyful.pixelmon.overlay.api.Broadcast;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
 import com.envyful.pixelmon.overlay.forge.task.ClearTask;
@@ -30,12 +33,18 @@ public class TextBroadcast implements Broadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        NoticeOverlay.builder().setLines(this.text)
+        List<String> lines = Lists.newArrayList();
+        NoticeOverlay.Builder builder = NoticeOverlay.builder()
                 .setLayout(this.layout)
-                .setItemStack(new ItemStack(Items.AIR))
-                .sendTo((EntityPlayerMP) player.getParent());
+                .setItemStack(new ItemStack(Items.AIR));
 
+        for (String s : this.text) {
+            lines.add(UtilChatColour.translateColourCodes('&', UtilPlaceholder.replaceIdentifiers(player, s)));
+        }
+
+        builder.setLines(lines);
         ClearTask.updateClearTime(player, System.currentTimeMillis() + this.duration);
+        builder.sendTo((EntityPlayerMP) player.getParent());
     }
 
     @Override
@@ -47,9 +56,11 @@ public class TextBroadcast implements Broadcast {
 
     @Override
     public void sendAll() {
-        for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
-            this.send(onlinePlayer);
-        }
+        UtilForgeConcurrency.runSync(() -> {
+            for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
+                this.send(onlinePlayer);
+            }
+        });
     }
 
     public static class Builder implements Broadcast.Builder<String> {

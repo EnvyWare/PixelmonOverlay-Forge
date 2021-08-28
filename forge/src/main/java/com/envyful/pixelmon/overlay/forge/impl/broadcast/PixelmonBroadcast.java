@@ -1,9 +1,12 @@
 package com.envyful.pixelmon.overlay.forge.impl.broadcast;
 
+import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.player.EnvyPlayer;
+import com.envyful.papi.api.util.UtilPlaceholder;
 import com.envyful.pixelmon.overlay.api.Broadcast;
 import com.envyful.pixelmon.overlay.forge.impl.broadcast.pixelmon.PixelmonDisplay;
 import com.envyful.pixelmon.overlay.forge.task.ClearTask;
+import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
 import com.pixelmonmod.pixelmon.api.overlay.notice.NoticeOverlay;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
@@ -25,7 +28,8 @@ public class PixelmonBroadcast extends TextBroadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        NoticeOverlay.Builder builder = NoticeOverlay.builder().setLines(this.text)
+        List<String> lines = Lists.newArrayList();
+        NoticeOverlay.Builder builder = NoticeOverlay.builder()
                 .setLayout(this.layout);
 
         if (this.display.isSprite()) {
@@ -34,8 +38,13 @@ public class PixelmonBroadcast extends TextBroadcast {
             builder.setPokemon3D(new PokemonSpec(this.display.getSpec()));
         }
 
-        builder.sendTo((EntityPlayerMP) player.getParent());
+        for (String s : this.text) {
+            lines.add(UtilChatColour.translateColourCodes('&', UtilPlaceholder.replaceIdentifiers(player, s)));
+        }
+
+        builder.setLines(lines);
         ClearTask.updateClearTime(player, System.currentTimeMillis() + this.duration);
+        builder.sendTo((EntityPlayerMP) player.getParent());
     }
 
     public static class Builder implements Broadcast.Builder<PixelmonDisplay> {
