@@ -41,7 +41,7 @@ public class ClearTask implements Runnable {
                 continue;
             }
 
-            if (System.currentTimeMillis() > next.getValue()) {
+            if (System.currentTimeMillis() < next.getValue()) {
                 continue;
             }
 

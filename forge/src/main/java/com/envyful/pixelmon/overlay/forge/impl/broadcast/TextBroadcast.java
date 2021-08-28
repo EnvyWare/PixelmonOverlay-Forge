@@ -1,7 +1,6 @@
 package com.envyful.pixelmon.overlay.forge.impl.broadcast;
 
 import com.envyful.api.forge.chat.UtilChatColour;
-import com.envyful.api.forge.concurrency.UtilForgeConcurrency;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.papi.api.util.UtilPlaceholder;
@@ -56,11 +55,9 @@ public class TextBroadcast implements Broadcast {
 
     @Override
     public void sendAll() {
-        UtilForgeConcurrency.runSync(() -> {
-            for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
-                this.send(onlinePlayer);
-            }
-        });
+        for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
+            this.send(onlinePlayer);
+        }
     }
 
     public static class Builder implements Broadcast.Builder<String> {
