@@ -2,6 +2,8 @@ package com.envyful.pixelmon.overlay.forge.config;
 
 import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
+import com.envyful.pixelmon.overlay.forge.config.type.ItemConfigData;
+import com.envyful.pixelmon.overlay.forge.config.type.PixelmonConfigData;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -17,7 +19,11 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
 
     private boolean autoBroadcastsEnabled = true;
     private long autoBroadcastDelaySeconds = 300;
-    private Map<String, BroadcastConfig> broadcasts = Maps.newHashMap(ImmutableMap.of("one", new BroadcastConfig()));
+    private Map<String, BroadcastConfig> broadcasts = Maps.newHashMap(ImmutableMap.of(
+            "one", new BroadcastConfig(),
+            "two", new BroadcastConfig(new ItemConfigData("stone", 0)),
+            "three", new BroadcastConfig(new PixelmonConfigData("pikachu", false))
+    ));
 
     public PixelmonOverlayConfig() {
         super();
