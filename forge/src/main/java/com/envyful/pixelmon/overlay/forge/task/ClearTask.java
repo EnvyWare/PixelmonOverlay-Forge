@@ -1,6 +1,5 @@
 package com.envyful.pixelmon.overlay.forge.task;
 
-import com.envyful.api.forge.concurrency.UtilForgeConcurrency;
 import com.envyful.api.forge.player.util.UtilPlayer;
 import com.envyful.api.player.EnvyPlayer;
 import com.google.common.collect.Maps;
@@ -46,7 +45,7 @@ public class ClearTask implements Runnable {
             }
 
             iterator.remove();
-            UtilForgeConcurrency.runSync(() -> Pixelmon.network.sendTo(CLEAR_PACKET, player));
+            Pixelmon.network.sendTo(CLEAR_PACKET, player);
         }
     }
 }
