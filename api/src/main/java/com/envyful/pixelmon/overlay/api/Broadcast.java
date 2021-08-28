@@ -1,6 +1,7 @@
 package com.envyful.pixelmon.overlay.api;
 
 import com.envyful.api.player.EnvyPlayer;
+import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +43,15 @@ public interface Broadcast {
      * @param <T> type that the builder represents
      */
     interface Builder<T> {
+
+        /**
+         *
+         * Sets the layout of the {@link Broadcast}
+         *
+         * @param layout The layout
+         * @return The builder
+         */
+        Builder<T> layout(EnumOverlayLayout layout);
 
         /**
          *
