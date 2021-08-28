@@ -7,6 +7,7 @@ import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
 import com.envyful.pixelmon.overlay.forge.config.PixelmonOverlayConfig;
 import com.envyful.pixelmon.overlay.forge.impl.BroadcastPlatformForge;
+import com.envyful.pixelmon.overlay.forge.task.BroadcastTask;
 import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -44,6 +45,13 @@ public class PixelmonOverlayForge {
                 .interval(10L)
                 .task(new ClearTask())
                 .start();
+
+        new ForgeTaskBuilder()
+                .async(true)
+                .delay(20L)
+                .interval(20L)
+                .task(new BroadcastTask(this))
+                .start();
     }
 
     private void loadConfig() {
@@ -65,5 +73,9 @@ public class PixelmonOverlayForge {
 
     public ForgePlayerManager getPlayerManager() {
         return this.playerManager;
+    }
+
+    public PixelmonOverlayConfig getConfig() {
+        return this.config;
     }
 }
