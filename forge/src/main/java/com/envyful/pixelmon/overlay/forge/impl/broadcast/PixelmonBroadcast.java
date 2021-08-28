@@ -25,7 +25,7 @@ public class PixelmonBroadcast extends TextBroadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        NoticeOverlay.Builder builder = NoticeOverlay.builder().addLines(this.text)
+        NoticeOverlay.Builder builder = NoticeOverlay.builder().setLines(this.text)
                 .setLayout(this.layout);
 
         if (this.display.isSprite()) {

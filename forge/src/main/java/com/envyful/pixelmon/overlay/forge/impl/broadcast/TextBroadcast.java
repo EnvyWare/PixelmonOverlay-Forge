@@ -30,7 +30,7 @@ public class TextBroadcast implements Broadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        NoticeOverlay.builder().addLines(this.text)
+        NoticeOverlay.builder().setLines(this.text)
                 .setLayout(this.layout)
                 .setItemStack(new ItemStack(Items.AIR))
                 .sendTo((EntityPlayerMP) player.getParent());

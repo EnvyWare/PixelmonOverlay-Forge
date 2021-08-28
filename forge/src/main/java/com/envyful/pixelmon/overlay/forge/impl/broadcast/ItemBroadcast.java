@@ -24,7 +24,7 @@ public class ItemBroadcast extends TextBroadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        NoticeOverlay.builder().addLines(this.text)
+        NoticeOverlay.builder().setLines(this.text)
                 .setLayout(this.layout)
                 .setItemStack(this.display)
                 .sendTo((EntityPlayerMP) player.getParent());
