@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TextBroadcast implements Broadcast {
 
-    private final long duration;
-    private final EnumOverlayLayout layout;
-    private final List<String> text;
+    protected final long duration;
+    protected final EnumOverlayLayout layout;
+    protected final List<String> text;
 
     public TextBroadcast(long duration, EnumOverlayLayout layout, List<String> text) {
         this.duration = duration;
