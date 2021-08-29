@@ -6,6 +6,7 @@ import com.envyful.api.player.EnvyPlayer;
 import com.envyful.papi.api.util.UtilPlaceholder;
 import com.envyful.pixelmon.overlay.api.Broadcast;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
+import com.envyful.pixelmon.overlay.forge.impl.OverlayAttribute;
 import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
@@ -56,6 +57,12 @@ public class TextBroadcast implements Broadcast {
     @Override
     public void sendAll() {
         for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
+            OverlayAttribute attribute = onlinePlayer.getAttribute(PixelmonOverlayForge.class);
+
+            if (attribute != null && attribute.isToggled()) {
+                continue;
+            }
+
             this.send(onlinePlayer);
         }
     }
