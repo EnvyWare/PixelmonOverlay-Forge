@@ -54,7 +54,7 @@ public class PixelmonOverlayForge {
                 .start();
     }
 
-    private void loadConfig() {
+    public void loadConfig() {
         try {
             this.config = YamlConfigFactory.getInstance(PixelmonOverlayConfig.class);
         } catch (IOException e) {
