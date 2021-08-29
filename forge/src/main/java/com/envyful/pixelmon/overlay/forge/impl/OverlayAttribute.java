@@ -2,14 +2,15 @@ package com.envyful.pixelmon.overlay.forge.impl;
 
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.forge.player.attribute.AbstractForgeAttribute;
+import com.envyful.api.player.EnvyPlayer;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
 
 public class OverlayAttribute extends AbstractForgeAttribute<PixelmonOverlayForge> {
 
     private boolean toggled = false;
 
-    public OverlayAttribute(PixelmonOverlayForge manager, ForgeEnvyPlayer parent) {
-        super(manager, parent);
+    public OverlayAttribute(PixelmonOverlayForge manager, EnvyPlayer<?> parent) {
+        super(manager, (ForgeEnvyPlayer) parent);
     }
 
     public boolean isToggled() {
