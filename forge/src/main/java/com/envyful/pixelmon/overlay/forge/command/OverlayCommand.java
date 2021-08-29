@@ -15,9 +15,10 @@ import net.minecraft.util.text.TextComponentString;
                 "pixelmonoverlay"
         }
 )
-@SubCommands(
-        ReloadCommand.class
-)
+@SubCommands({
+        ReloadCommand.class,
+        ToggleCommand.class
+})
 public class OverlayCommand {
 
     @CommandProcessor
