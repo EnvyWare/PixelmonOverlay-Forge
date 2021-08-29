@@ -7,6 +7,7 @@ import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
 import com.envyful.pixelmon.overlay.forge.config.PixelmonOverlayConfig;
 import com.envyful.pixelmon.overlay.forge.impl.BroadcastPlatformForge;
+import com.envyful.pixelmon.overlay.forge.impl.OverlayAttribute;
 import com.envyful.pixelmon.overlay.forge.task.BroadcastTask;
 import com.envyful.pixelmon.overlay.forge.task.ClearTask;
 import net.minecraftforge.fml.common.Mod;
@@ -38,6 +39,8 @@ public class PixelmonOverlayForge {
         BroadcastFactory.setPlatformFactory(new BroadcastPlatformForge());
 
         this.loadConfig();
+
+        this.playerManager.registerAttribute(this, OverlayAttribute.class);
 
         new ForgeTaskBuilder()
                 .async(true)
