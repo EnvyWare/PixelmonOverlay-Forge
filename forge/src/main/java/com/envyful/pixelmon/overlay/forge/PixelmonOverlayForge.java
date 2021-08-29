@@ -5,6 +5,7 @@ import com.envyful.api.forge.command.ForgeCommandFactory;
 import com.envyful.api.forge.concurrency.ForgeTaskBuilder;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
+import com.envyful.pixelmon.overlay.forge.command.OverlayCommand;
 import com.envyful.pixelmon.overlay.forge.config.PixelmonOverlayConfig;
 import com.envyful.pixelmon.overlay.forge.impl.BroadcastPlatformForge;
 import com.envyful.pixelmon.overlay.forge.impl.OverlayAttribute;
@@ -67,7 +68,7 @@ public class PixelmonOverlayForge {
 
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
-
+        this.commandFactory.registerCommand(event.getServer(), new OverlayCommand());
     }
 
     public static PixelmonOverlayForge getInstance() {
