@@ -19,14 +19,19 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
 
     private boolean autoBroadcastsEnabled = true;
     private long autoBroadcastDelaySeconds = 300;
-    private Map<String, BroadcastConfig> broadcasts = Maps.newHashMap(ImmutableMap.of(
-            "one", new BroadcastConfig(),
-            "two", new BroadcastConfig(new ItemConfigData("stone", 0)),
-            "three", new BroadcastConfig(new PixelmonConfigData("pikachu", false))
+    private List<String> broadcasts = Lists.newArrayList("one");
+    private Map<String, BroadcastConfig> options = Maps.newHashMap(ImmutableMap.of(
+            "one", new BroadcastConfig("One"),
+            "two", new BroadcastConfig("Two", new ItemConfigData("stone", 0)),
+            "three", new BroadcastConfig("Three", new PixelmonConfigData("pikachu", false))
     ));
 
     public PixelmonOverlayConfig() {
         super();
+    }
+
+    public List<String> getBroadcasts() {
+        return this.broadcasts;
     }
 
     public long getAutoBroadcastDelaySeconds() {
@@ -37,13 +42,14 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
         return this.autoBroadcastsEnabled;
     }
 
-    public Map<String, BroadcastConfig> getBroadcasts() {
-        return this.broadcasts;
+    public Map<String, BroadcastConfig> getOptions() {
+        return this.options;
     }
 
     @ConfigSerializable
     public static class BroadcastConfig {
 
+        private String id;
         private String layoutType = EnumOverlayLayout.LEFT_AND_RIGHT.name();
         private List<String> text = Lists.newArrayList("Line 1", "Line 2", "ETC", "yanno");
         private long durationSeconds = 30;
@@ -51,7 +57,11 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
 
         public BroadcastConfig() {}
 
-        public BroadcastConfig(ConfigData<?> configData) {
+        public BroadcastConfig(String id) {
+            this.id = id;
+        }
+
+        public BroadcastConfig(String id, ConfigData<?> configData) {
             this.configData = configData;
         }
 
