@@ -55,12 +55,20 @@ public class BroadcastCommand {
             }
         }
 
-        PixelmonOverlayConfig.BroadcastConfig broadcastConfig = PixelmonOverlayForge.getInstance().getConfig().getOptions().get(args[1]);
+        PixelmonOverlayConfig.BroadcastConfig broadcastConfig = PixelmonOverlayForge.getInstance().getConfig().getOptions().get(args[0]);
+
+        if (broadcastConfig == null) {
+            sender.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes('&',
+                    "&c&l(!) &cCannot find that broadcast! /overlay bc <id> (targets...)")));
+            return;
+        }
 
         BroadcastFactory.builder(broadcastConfig.getConfigData() == null ? "" : broadcastConfig.getConfigData().build())
                 .lines(broadcastConfig.getText())
                 .duration((int) broadcastConfig.getDurationSeconds())
                 .layout(EnumOverlayLayout.valueOf(broadcastConfig.getLayoutType().toUpperCase()))
                 .build().send(targets.toArray(new EnvyPlayer<?>[0]));
+        sender.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes('&',
+                "&e&l(!) &eBroadcast sent")));
     }
 }

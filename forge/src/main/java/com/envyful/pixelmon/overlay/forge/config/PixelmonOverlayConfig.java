@@ -21,9 +21,9 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
     private long autoBroadcastDelaySeconds = 300;
     private List<String> broadcasts = Lists.newArrayList("one");
     private Map<String, BroadcastConfig> options = Maps.newHashMap(ImmutableMap.of(
-            "one", new BroadcastConfig("One"),
-            "two", new BroadcastConfig("Two", new ItemConfigData("stone", 0)),
-            "three", new BroadcastConfig("Three", new PixelmonConfigData("pikachu", false))
+            "one", new BroadcastConfig(),
+            "two", new BroadcastConfig(new ItemConfigData("stone", 0)),
+            "three", new BroadcastConfig(new PixelmonConfigData("pikachu", false))
     ));
 
     public PixelmonOverlayConfig() {
@@ -49,7 +49,6 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
     @ConfigSerializable
     public static class BroadcastConfig {
 
-        private String id;
         private String layoutType = EnumOverlayLayout.LEFT_AND_RIGHT.name();
         private List<String> text = Lists.newArrayList("Line 1", "Line 2", "ETC", "yanno");
         private long durationSeconds = 30;
@@ -57,11 +56,7 @@ public class PixelmonOverlayConfig extends AbstractYamlConfig {
 
         public BroadcastConfig() {}
 
-        public BroadcastConfig(String id) {
-            this.id = id;
-        }
-
-        public BroadcastConfig(String id, ConfigData<?> configData) {
+        public BroadcastConfig(ConfigData<?> configData) {
             this.configData = configData;
         }
 
