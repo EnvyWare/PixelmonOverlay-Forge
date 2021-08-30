@@ -43,7 +43,6 @@ public class BroadcastTask implements Runnable {
     }
 
     private PixelmonOverlayConfig.BroadcastConfig getRandomBroadcast() {
-        return UtilRandom.getRandomElement(this.mod.getConfig().getBroadcasts().values()
-                .toArray(new PixelmonOverlayConfig.BroadcastConfig[0]));
+        return this.mod.getConfig().getOptions().get(UtilRandom.getRandomElement(this.mod.getConfig().getBroadcasts()));
     }
 }

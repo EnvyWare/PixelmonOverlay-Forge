@@ -17,7 +17,8 @@ import net.minecraft.util.text.TextComponentString;
 )
 @SubCommands({
         ReloadCommand.class,
-        ToggleCommand.class
+        ToggleCommand.class,
+        BroadcastCommand.class
 })
 public class OverlayCommand {
 
