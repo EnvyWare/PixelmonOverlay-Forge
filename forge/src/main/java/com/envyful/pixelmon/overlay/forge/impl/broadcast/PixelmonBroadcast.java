@@ -39,7 +39,8 @@ public class PixelmonBroadcast extends TextBroadcast {
         }
 
         for (String s : this.text) {
-            lines.add(UtilChatColour.translateColourCodes('&', UtilPlaceholder.replaceIdentifiers(player, s)));
+            lines.add(UtilChatColour.translateColourCodes('&',
+                    UtilPlaceholder.replaceIdentifiers((EntityPlayerMP) player.getParent(), s)));
         }
 
         builder.setLines(lines);
