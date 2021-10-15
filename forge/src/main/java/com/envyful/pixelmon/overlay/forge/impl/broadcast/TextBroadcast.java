@@ -68,7 +68,7 @@ public class TextBroadcast implements Broadcast {
         for (ForgeEnvyPlayer onlinePlayer : PixelmonOverlayForge.getInstance().getPlayerManager().getOnlinePlayers()) {
             OverlayAttribute attribute = onlinePlayer.getAttribute(PixelmonOverlayForge.class);
 
-            if (attribute != null && attribute.isToggled()) {
+            if (attribute == null || attribute.isToggled()) {
                 continue;
             }
 
