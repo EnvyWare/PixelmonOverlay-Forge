@@ -39,8 +39,16 @@ public class TextBroadcast implements Broadcast {
                 .setItemStack(new ItemStack(Items.AIR));
 
         for (String s : this.text) {
-            lines.add(UtilChatColour.translateColourCodes('&',
-                    UtilPlaceholder.replaceIdentifiers((EntityPlayerMP) player.getParent(), s)));
+            try {
+                lines.add(UtilChatColour.translateColourCodes(
+                        '&',
+                        UtilPlaceholder.replaceIdentifiers((EntityPlayerMP) player.getParent(), s)
+                ));
+            } catch (Exception e) {
+                for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+                    System.out.println(stackTraceElement.toString());
+                }
+            }
         }
 
         builder.setLines(lines);
@@ -61,6 +69,10 @@ public class TextBroadcast implements Broadcast {
             OverlayAttribute attribute = onlinePlayer.getAttribute(PixelmonOverlayForge.class);
 
             if (attribute != null && attribute.isToggled()) {
+                continue;
+            }
+
+            if ((System.currentTimeMillis() - attribute.getLoginTime()) <= TimeUnit.SECONDS.toMillis(30)) {
                 continue;
             }
 

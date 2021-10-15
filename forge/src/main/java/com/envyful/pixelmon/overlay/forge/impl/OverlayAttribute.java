@@ -8,6 +8,7 @@ import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
 public class OverlayAttribute extends AbstractForgeAttribute<PixelmonOverlayForge> {
 
     private boolean toggled = false;
+    private long loginTime = System.currentTimeMillis();
 
     public OverlayAttribute(PixelmonOverlayForge manager, EnvyPlayer<?> parent) {
         super(manager, (ForgeEnvyPlayer) parent);
@@ -19,6 +20,10 @@ public class OverlayAttribute extends AbstractForgeAttribute<PixelmonOverlayForg
 
     public void setToggled(boolean toggled) {
         this.toggled = toggled;
+    }
+
+    public long getLoginTime() {
+        return this.loginTime;
     }
 
     @Override
