@@ -53,6 +53,11 @@ public class TextBroadcast implements Broadcast {
 
         builder.setLines(lines);
         ClearTask.updateClearTime(player, System.currentTimeMillis() + this.duration);
+
+        if (player.getParent() == null) {
+            return;
+        }
+
         builder.sendTo((EntityPlayerMP) player.getParent());
     }
 
@@ -73,6 +78,10 @@ public class TextBroadcast implements Broadcast {
             }
 
             if ((System.currentTimeMillis() - attribute.getLoginTime()) <= TimeUnit.SECONDS.toMillis(30)) {
+                continue;
+            }
+
+            if (onlinePlayer.getParent() == null) {
                 continue;
             }
 
