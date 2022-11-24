@@ -11,6 +11,7 @@ import com.pixelmonmod.api.pokemon.PokemonSpecificationProxy;
 import com.pixelmonmod.pixelmon.api.overlay.notice.EnumOverlayLayout;
 import com.pixelmonmod.pixelmon.api.overlay.notice.NoticeOverlay;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PixelmonBroadcast extends TextBroadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        List<String> lines = Lists.newArrayList();
+        List<ITextComponent> lines = Lists.newArrayList();
         NoticeOverlay.Builder builder = NoticeOverlay.builder()
                 .setLayout(this.layout);
 
@@ -39,8 +40,7 @@ public class PixelmonBroadcast extends TextBroadcast {
         }
 
         for (String s : this.text) {
-            lines.add(UtilChatColour.translateColourCodes('&',
-                    UtilPlaceholder.replaceIdentifiers((ServerPlayerEntity) player.getParent(), s)));
+            lines.add(UtilChatColour.colour(UtilPlaceholder.replaceIdentifiers((ServerPlayerEntity) player.getParent(), s)));
         }
 
         builder.setLines(lines);

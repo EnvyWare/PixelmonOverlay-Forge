@@ -14,6 +14,7 @@ import com.pixelmonmod.pixelmon.api.overlay.notice.NoticeOverlay;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,15 +34,14 @@ public class TextBroadcast implements Broadcast {
 
     @Override
     public void send(EnvyPlayer<?> player) {
-        List<String> lines = Lists.newArrayList();
+        List<ITextComponent> lines = Lists.newArrayList();
         NoticeOverlay.Builder builder = NoticeOverlay.builder()
                 .setLayout(this.layout)
                 .setItemStack(new ItemStack(Items.AIR));
 
         for (String s : this.text) {
             try {
-                lines.add(UtilChatColour.translateColourCodes(
-                        '&',
+                lines.add(UtilChatColour.colour(
                         UtilPlaceholder.replaceIdentifiers((ServerPlayerEntity) player.getParent(), s)
                 ));
             } catch (Exception e) {
