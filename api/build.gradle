@@ -1,27 +1,21 @@
-repositories {
-    maven {
-        name = 'spongepowered-repo'
-        url = 'https://repo.spongepowered.org/maven'
-    }
-
-    maven { url 'https://jitpack.io' }
-
-    flatDir {
-        dirs '../Libraries/'
-    }
+plugins {
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
+
+repositories {}
 
 dependencies {
     shadow group: 'org.spongepowered', name: 'configurate-yaml', version: '4.0.0'
 
-    compileOnly 'com.pixelmonmod.pixelmon:Pixelmon-1.12.2-8.2.0-server:1.0'
+    compileOnly 'pixelmon:Pixelmon-1.12.2-8.2.0-server:8.2.0'
 
-    compileOnly group: 'com.github.EnvyWare.API', name: 'commons', version: '3.8.5'
+    shadow (group: 'com.envyful.api', name: 'commons', version: '5.0.3')
 }
 
 shadowJar {
     configurations = [project.configurations.shadow]
-    archiveName = rootProject.name + '-API.jar'
+    setArchiveClassifier('')
+    setArchiveBaseName("${rootProject.name}-Forge")
 
     relocate('org.spongepowered.configurate', 'com.envyful.api.commons.shade.configurate')
     relocate('org.yaml.snakeyaml', 'com.envyful.api.commons.shade.snakeyaml')
