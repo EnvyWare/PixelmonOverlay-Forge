@@ -17,4 +17,5 @@ plugins {
 rootProject.name = 'PixelmonOverlay'
 include 'api'
 //include 'forge'
-include 'forge16'
+//include 'forge16'
+include 'forge20'
