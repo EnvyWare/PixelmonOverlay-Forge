@@ -32,6 +32,10 @@ dependencies {
     shadow project(':api')
 }
 
+compileJava {
+    dependsOn(':api:jar')
+}
+
 shadowJar {
     configurations = [project.configurations.shadow]
     setArchiveClassifier('')
