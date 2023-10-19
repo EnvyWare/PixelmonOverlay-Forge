@@ -2,6 +2,7 @@ package com.envyful.pixelmon.overlay.forge;
 
 import com.envyful.api.config.yaml.YamlConfigFactory;
 import com.envyful.api.forge.command.ForgeCommandFactory;
+import com.envyful.api.forge.command.parser.ForgeAnnotationCommandParser;
 import com.envyful.api.forge.concurrency.ForgeTaskBuilder;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.pixelmon.overlay.api.BroadcastFactory;
@@ -27,7 +28,7 @@ public class PixelmonOverlayForge {
     private PixelmonOverlayConfig config;
 
     private ForgePlayerManager playerManager = new ForgePlayerManager();
-    private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
+    private ForgeCommandFactory commandFactory = new ForgeCommandFactory(ForgeAnnotationCommandParser::new, playerManager);
 
     public PixelmonOverlayForge() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -41,7 +42,7 @@ public class PixelmonOverlayForge {
 
         this.loadConfig();
 
-        this.playerManager.registerAttribute(this, OverlayAttribute.class);
+        this.playerManager.registerAttribute(OverlayAttribute.class);
 
         new ForgeTaskBuilder()
                 .async(true)
@@ -68,7 +69,7 @@ public class PixelmonOverlayForge {
 
     @SubscribeEvent
     public void onServerStarting(RegisterCommandsEvent event) {
-        this.commandFactory.registerCommand(event.getDispatcher(), new OverlayCommand());
+        this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new OverlayCommand()));
     }
 
     public static PixelmonOverlayForge getInstance() {

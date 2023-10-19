@@ -1,16 +1,16 @@
 package com.envyful.pixelmon.overlay.forge.impl;
 
 import com.envyful.api.forge.player.ForgePlayerManager;
-import com.envyful.api.forge.player.attribute.AbstractForgeAttribute;
+import com.envyful.api.forge.player.attribute.ManagedForgeAttribute;
 import com.envyful.pixelmon.overlay.forge.PixelmonOverlayForge;
 
-public class OverlayAttribute extends AbstractForgeAttribute<PixelmonOverlayForge> {
+public class OverlayAttribute extends ManagedForgeAttribute<PixelmonOverlayForge> {
 
     private boolean toggled = false;
     private long loginTime = System.currentTimeMillis();
 
-    public OverlayAttribute(PixelmonOverlayForge manager, ForgePlayerManager playerManager) {
-        super(manager, playerManager);
+    public OverlayAttribute(ForgePlayerManager playerManager) {
+        super(PixelmonOverlayForge.getInstance(), playerManager);
     }
 
     public boolean isToggled() {

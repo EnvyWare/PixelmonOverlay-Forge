@@ -8,9 +8,8 @@ import com.envyful.api.forge.chat.UtilChatColour;
 import net.minecraft.commands.CommandSource;
 
 @Command(
-        value = "overlay",
-        description = "Root command",
-        aliases = {
+        value = {
+                "overlay",
                 "pixelmonoverlay"
         }
 )

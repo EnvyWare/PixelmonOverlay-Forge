@@ -1,9 +1,9 @@
 package com.envyful.pixelmon.overlay.forge.command;
 
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.player.util.UtilPlayer;
 import com.envyful.api.player.EnvyPlayer;
@@ -19,9 +19,8 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import java.util.List;
 
 @Command(
-        value = "bc",
-        description = "Sends a specific broadcast to a target",
-        aliases = {
+        value = {
+                "bc",
                 "broadcast"
         }
 )

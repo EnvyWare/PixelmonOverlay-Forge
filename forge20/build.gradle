@@ -4,10 +4,10 @@ plugins {
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-forgeVersion = "1.20.1"
+forgeVersion = "1.20.2"
 
 minecraft {
-    mappings channel: 'official', version: '1.20.1'
+    mappings channel: 'official', version: "1.20.2"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -15,17 +15,17 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {}
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.20.1-47.1.44"
+    minecraft 'net.minecraftforge:forge:1.20.2-48.0.30'
 
-    implementation 'pixelmon:Pixelmon-1.20.1-9.2.0-server:9.2.0'
-    compileOnly 'com.github.EnvyWare.ForgePlaceholderAPI:api:2.0.3'
+    implementation 'pixelmon:Pixelmon-1.20.2-9.2.4-server:9.2.4'
+    compileOnly 'com.envyful.papi:api:2.0.5'
 
-    shadow group: 'org.spongepowered', name: 'configurate-yaml', version: '4.0.0'
-    shadow (group: 'com.envyful.api', name: 'commons', version: '5.0.3')
-    shadow (group: 'com.envyful.api', name: 'forge20', version: '5.0.3') {
+    shadow group: 'org.spongepowered', name: 'configurate-yaml', version: '4.2.0-COMMENTS'
+    shadow (group: 'com.envyful.api', name: 'commons', version: '5.5.2')
+    shadow (group: 'com.envyful.api', name: 'forge20', version: '5.5.2') {
         transitive = false
     }
-    shadow (group: 'com.envyful.api', name: 'reforged20', version: '5.0.3') {
+    shadow (group: 'com.envyful.api', name: 'reforged20', version: '5.5.2') {
         transitive = false
     }
 
@@ -41,26 +41,24 @@ shadowJar {
     setArchiveClassifier('')
     setArchiveBaseName("${rootProject.name}-Forge")
 
-    relocate('org.spongepowered.configurate', 'com.envyful.pixelmon.overlay.shade.configurate')
-    relocate('org.yaml.snakeyaml', 'com.envyful.pixelmon.overlay.shade.snakeyaml')
-    relocate('io.leangen.geantyref', 'com.envyful.pixelmon.overlay.shade.geantyref')
-    relocate('com.google.gson', 'com.envyful.pixelmon.overlay.shade.gson')
-    relocate('com.zaxxer', 'com.envyful.pixelmon.overlay.shade.hikari')
-    relocate('org.slf4j', 'com.envyful.pixelmon.overlay.shade.slf4j')
-    relocate('com.envyful.api', 'com.envyful.pixelmon.overlay.shade.envy.api')
-    relocate('org.bstats', 'com.envyful.pixelmon.overlay.shade.bstats')
-    relocate('com.google.common', 'com.envyful.pixelmon.overlay.shade.guava')
-    relocate('org.apache.logging', 'com.envyful.pixelmon.overlay.shade.log4j')
-    relocate('io.netty', 'com.envyful.pixelmon.overlay.shade.netty')
-    relocate('io.lettuce', 'com.envyful.pixelmon.overlay.shade.lettuce')
-    relocate('com.cronutils', 'com.envyful.pixelmon.overlay.shade.cronutils')
-    relocate('com.cronutils', 'com.envyful.pixelmon.overlay.shade.cronutils')
-    relocate('com.sun.el', 'com.envyful.pixelmon.overlay.shade.sun.el')
-    relocate('javax', 'com.envyful.pixelmon.overlay.shade.javax')
-    relocate('javax', 'com.envyful.pixelmon.overlay.shade.javax')
-    relocate('org.reactivestreams', 'com.envyful.pixelmon.overlay.shade.reactivestreams')
-    relocate('reactor', 'com.envyful.pixelmon.overlay.shade.reactor')
+    relocate('org.spongepowered.configurate', 'com.envyful.pixelmon.overlay.forge.shade.configurate')
+    relocate('org.yaml.snakeyaml', 'com.envyful.pixelmon.overlay.forge.shade.snakeyaml')
+    relocate('io.leangen.geantyref', 'com.envyful.pixelmon.overlay.forge.shade.geantyref')
+    relocate('com.zaxxer', 'com.envyful.pixelmon.overlay.forge.shade.hikari')
+    relocate('org.slf4j', 'com.envyful.pixelmon.overlay.forge.shade.slf4j')
+    relocate('com.envyful.api', 'com.envyful.pixelmon.overlay.forge.shade.envy.api')
+    relocate('org.bstats', 'com.envyful.pixelmon.overlay.forge.shade.bstats')
+    relocate('org.apache.logging', 'com.envyful.pixelmon.overlay.forge.shade.log4j')
+    relocate('io.netty', 'com.envyful.pixelmon.overlay.forge.shade.netty')
+    relocate('io.lettuce', 'com.envyful.pixelmon.overlay.forge.shade.lettuce')
+    relocate('com.cronutils', 'com.envyful.pixelmon.overlay.forge.shade.cronutils')
+    relocate('com.cronutils', 'com.envyful.pixelmon.overlay.forge.shade.cronutils')
+    relocate('com.sun.el', 'com.envyful.pixelmon.overlay.forge.shade.sun.el')
+    relocate('org.reactivestreams', 'com.envyful.pixelmon.overlay.forge.shade.reactivestreams')
+    relocate('reactor', 'com.envyful.pixelmon.overlay.forge.shade.reactor')
 
+    exclude "com/google/**"
+    exclude "javax/**"
     exclude "**/module-info.class"
     exclude "**/*.properties"
     exclude "**/*.xml"

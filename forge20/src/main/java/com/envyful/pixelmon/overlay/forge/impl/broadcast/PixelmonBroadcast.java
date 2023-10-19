@@ -34,9 +34,9 @@ public class PixelmonBroadcast extends TextBroadcast {
                 .setLayout(this.layout);
 
         if (this.display.isSprite()) {
-            builder.setPokemonSprite(PokemonSpecificationProxy.create(this.display.getSpec()));
+            builder.setPokemonSprite(PokemonSpecificationProxy.create(this.display.getSpec()).get());
         } else {
-            builder.setPokemon3D(PokemonSpecificationProxy.create(this.display.getSpec()));
+            builder.setPokemon3D(PokemonSpecificationProxy.create(this.display.getSpec()).get());
         }
 
         for (String s : this.text) {
